@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 00</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            margin-left: 100px;
+            margin-top: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <ol>
+            <!-- 關於這個塞法有點疑慮, 這樣就算 visable=false, 仍然會 render <li> 出來，這相當令人困擾啊-->
+            <li v-for="user in users">
+                <span v-if=user.visable> {{ user.name }} </span>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                users: [
+                    { name: "AndrewChen", visable: true },
+                    { name: "陳柏安", visable: true },
+                    { name: "冰箱熊", visable: false },
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

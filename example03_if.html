@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 00</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            margin-left: 100px;
+            margin-top: 100px;
+        }
+        /** 
+            過渡的-CSS-類名
+            會有4個（CSS）類名在 enter / leave 的過渡中切換
+            v-enter：定義進入過渡的開始狀態。在元素被插入時生效，在下一幀移除。
+            v-enter-active：定義進入過渡的結束狀態。在元素被插入時生效，在transition/animation完成之後移除。
+            v-leave：定義離開過渡的開始狀態。在離開過渡被觸發時生效，在下一幀移除。
+            v-leave-active：定義離開過渡的結束狀態。在離開過渡被觸發時生效，在transition/animation完成之後移除。
+        */
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-active {
+            opacity: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 同場加映，v-on 可以綁定事件, 並且可以在後方的字串寫上簡易的 function 內容-->
+        <button v-on:click="seen = !seen"> 切換顯示 </button>
+        <p v-if="seen"> 切換顯示此字串 </p>
+
+        <hr>
+
+        <!-- 增加動畫效果 transition -->
+        <button v-on:click="seenAnimate = !seenAnimate"> 切換顯示 </button>
+        <!-- 以 transition 包裝之後仍然需要寫 .css-->
+        <transition name="fade">
+            <p v-if="seenAnimate"> 切換顯示此字串 (包含過場動畫) </p>
+        </transition>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                seen: true,
+                seenAnimate: true
+            }
+        })
+    </script>
+</body>
+
+</html>
