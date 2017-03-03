@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js">
+    </script>
+
+</head>
+
+<body>
+    <!-- 這邊掛載的 alert 的功能就是繼承來的 -->
+    <div id="header" v-on:click="alert">
+        Author Name is {{ author }}.
+    </div>
+
+    <script>
+        var MyComponent = Vue.extend({
+            // data 的部分並不會被繼承
+            data: {
+                author : 'AndrewChen',
+            },
+            // methods 的部分會被繼承
+            methods: {
+                alert: function() {
+                    alert('繼承來自 MyComponent 的功能');
+                },
+            },
+        })
+        var header = new MyComponent({
+            el: '#header',
+        })
+    </script>
+</body>
+
+</html>

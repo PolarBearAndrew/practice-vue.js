@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Practice Vue.js Example 00</title>
+    <title>Practice Vue.js Example 02</title>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
     <style>
         #app {
+            width: 120px;
             margin-left: 100px;
             margin-top: 100px;
         }
@@ -20,24 +21,23 @@
 
 <body>
     <div id="app">
-        <button v-on:click="clickBtn">按我將數字加一</button>
-        <br>
-        {{ count }}
+
+        <!-- v-bind 將變數綁定到指定的 attr 上-->
+
+        <span v-bind:title=message>
+            我只是一個標題
+        </span>
+
+        <!-- 同樣的會隨著 model 更新時更新-->
+        <input type="text" v-model=message>
     </div>
 
     <script>
         var app = new Vue({
             el: '#app',
             data: {
-                count: 0,
-            },
-            methods : {
-                clickBtn : function(e) {
-                    this.count++;
-                    // 同樣能取得 event 物件, event 物件能取得這個被點的 btn 的資訊
-                    console.log(e); 
-                },
-            },
+                message: 'Hello Vue.js!'
+            }
         })
     </script>
 </body>
