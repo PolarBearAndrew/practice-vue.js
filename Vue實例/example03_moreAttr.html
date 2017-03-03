@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 03</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js">
+    </script>
+
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="title">
+        <br>
+        {{ title }}
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data : {
+                title: 'This is a title',
+            },
+        })
+
+        // $開頭為 Vue 物件中的特殊屬性
+
+        // 取得整個 data 的資料
+        app.$data 
+
+        // 取得該元素
+        app.$el
+
+        // 針對某一個資料綁定 function
+        app.$watch('title', function(value) {
+            console.log('title change, new title is：', value);
+        })
+
+    </script>
+</body>
+
+</html>
