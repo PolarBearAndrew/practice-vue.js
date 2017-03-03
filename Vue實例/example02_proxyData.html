@@ -33,6 +33,14 @@
         app.name = '柴柴'
         console.log('data.name', data.name);
 
+        // 重點：
+        // 只有在 data 注入到 Vue 的物件中的時候已經存在的資料才會被綁定
+        // 如果在之後在 data 中增加新的 key，該 key 的資料就不會被同步更新了
+        data.like = '吃肉肉';
+        console.log('app.like', app.like); // undefined
+
+        // 這個綁定的行為稱為：代理 proxy
+
     </script>
 </body>
 
