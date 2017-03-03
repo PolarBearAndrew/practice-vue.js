@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 02</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+
+        <button v-bind:id='btnId'>按鈕</button>
+
+        <br>
+        <br>
+        <br>
+
+        <!-- 帶入 false 的參數時, 請使用字串, 如果直接使用 false, 該 attr 會消失-->
+        <button v-bind:disabled='disableBtn'>不能按的按鈕</button>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                btnId: 'testBtn',
+                disableBtn: 'false',
+            },
+        })
+
+    </script>
+</body>
+
+</html>

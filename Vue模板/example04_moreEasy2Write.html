@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 02</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- 完整語法 -->
+        <a v-bind:href="blogUrl">我的部落格</a><br>
+        <!-- 縮寫 -->
+        <a :href="blogUrl">我的部落格</a><br>
+
+
+        <!-- 完整語法 -->
+        <button v-on:click="showAlert">Hi</button><br>
+        <button @click="showAlert">Hi</button><br>
+
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                blogUrl : 'http://www.andrewchen.tw/'
+            },
+            methods: {
+                showAlert: function() {
+                    alert('Hi')
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>

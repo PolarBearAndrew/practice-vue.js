@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+
+        綁定一個值：<br>
+        <span> {{ name }} </span>
+        <hr>
+
+        Vue.js也支援在{{}}內撰寫 js 的方式 <br>
+        <span>{{ name == 'AndrewChen' ? 'is me' : 'not me' }}</span> <br>
+        <span>{{ name.split('').reverse().join('') }}</span>
+        <hr>
+
+        插入一個數值並且不綁定：<br>
+        <span v-once> {{ name }} </span>
+        <hr>
+
+        <!-- 並不能再 Vue 物件綁定的 DOM 中使用 rawHtml 的功能 -->
+        <!-- <span v-html='rawHtml'> {{ name }}</span>  -->
+
+    </div>
+
+    插入純 html：<br>
+    <span v-html='rawHtml'> {{ name }}</span>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data : {
+                name : 'AndrewChen'
+            },
+        })
+
+        setTimeout(function() {
+            // 所有跟 app.name 有相關綁定的 view 都會一次被 rerender
+            app.name = 'AndrewChen 2'
+        }, 3000);
+        
+    </script>
+</body>
+
+</html>

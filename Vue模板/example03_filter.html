@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 03</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="toggleMeanWords"> {{ btnText }} ({{ showMeanWords ? '是' : '否'}})</button>
+        <ul>
+            <li v-for="msg in messages">{{ msg | filteMeanWords(showMeanWords) }}</li>
+        </ul>
+        
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                btnText : '是否寫顯示髒話',
+                showMeanWords : false,
+                messages : [
+                    'Hi, I am AndrewChen.',
+                    'fuck you',
+                    'Sorry, I not really mean that',
+                    'haha !',
+                ],
+            },
+            // filters 的用途是針對所有的值去做一個簡單的操作或過濾
+            filters: {
+                // 當傳入值發生變動時，會同時觸發 filter
+                filteMeanWords : function(val, showMeanWords) {
+                    if(showMeanWords) return val
+                    return val.replace(/fuck/g, '****')
+                },
+            },
+            methods: {
+                toggleMeanWords: function() {
+                    this.showMeanWords = !this.showMeanWords
+                },
+            },
+        })
+
+    </script>
+</body>
+
+</html>

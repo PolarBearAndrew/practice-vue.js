@@ -20,13 +20,21 @@
         <br>
         <br>
         <br>
-        <button v-on:click="del">刪除這整個 Div</button>
+        <button v-on:click="del">刪除這這個 Vue 物件的事件綁定</button>
+
+        <br>
+        <br>
+
+        <!-- v-if 的更新只會觸發 update 的兩個 hook，並不會觸發 destroy -->
+        <div v-if='visable'>我三秒後會消失</div>
+
     </div>
     <script>
         var app = new Vue({
             el: '#app',
             data : {
                 title: '123',
+                visable : true,
             },
             // 生命週期, 在這個 DOM 的某些生命週期中, Vue.js 提供了對應的 Function 可以 hook
             beforeCreate : function() {
@@ -67,10 +75,14 @@
                 del: function() {
                     console.log('start del function');
                     this.$destroy();
-                    // destory 其實只會移除子元素和綁定的 event
+                    // destory 其實只會綁定的 event
                 }
             },
         })
+
+        setTimeout(function(){
+            app.visable = false
+        }, 3000);
 
     </script>
 </body>
