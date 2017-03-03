@@ -21,9 +21,9 @@
 <body>
     <div id="app">
         <ol>
-            <!-- 關於這個塞法有點疑慮, 這樣就算 visable=false, 仍然會 render <li> 出來，這相當令人困擾啊-->
-            <li v-for="user in users">
-                <span v-if=user.visable> {{ user.name }} </span>
+            <!-- v-if 必須跟 v-for 同層, 否則會產生 v-for 一個空的東西出來的問題 -->
+            <li v-for="user in users" v-if=user.visable>
+                {{ user.name }}
             </li>
         </ol>
     </div>

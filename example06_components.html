@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport'' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible'' content='ie=edge'>
+    <title>Practice Vue.js Example 00</title>
+
+    <script src='https://unpkg.com/vue/dist/vue.js'></script>
+
+    <style>
+        #app {
+            margin-left: 100px;
+            margin-top: 100px;
+        }
+        .name {
+            font-weight: bolder;
+            color: blue;
+        }
+        .user-message {
+            margin-top: 4px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 這個 <msg-item> 就是下方 Vue.component 所建立的元件 -->
+        <msg-item v-for='user in users' v-bind:user="user"></msg-item>
+    </div>
+
+    <script>
+        // 必須先 init component 才能進 new Vue 的動作, 不然會找不到這個元件
+        Vue.component('msg-item', {
+            props: ['user'],
+            template: `
+                <div class='user-message'>
+                    <span class='name'>{{ user.name }}</span>
+                    ：{{ user.message}}
+                </div>`,
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                users: [
+                    { name: 'AndrewChen', message: '我是 AndrewChen 嘿嘿', },
+                    { name: '陳柏安', message: '您好我是陳柏安', },
+                    { name: '冰箱熊', message: '吼~~~`', },
+                    { name: '柴柴', message: '汪汪' },
+                ]
+            },
+        })
+    </script>
+</body>
+
+</html>
