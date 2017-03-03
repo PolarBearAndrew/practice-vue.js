@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 02</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js">
+    </script>
+
+</head>
+
+<body>
+    <div id="app">
+        {{ name }}
+    </div>
+    <script>
+        var data = {
+            name: 'AndrewChen',
+        }
+        var app = new Vue({
+            el: '#app',
+            data : data,
+        })
+
+        // 改變來源的 data 就會直接影響 app.name 中的資料
+        // 並且同時觸發 view rerender
+        data.name = '陳柏安'
+
+        // 同理
+        app.name = '柴柴'
+        console.log('data.name', data.name);
+
+    </script>
+</body>
+
+</html>

@@ -15,7 +15,8 @@
 <body>
     <!-- 這邊掛載的 alert 的功能就是繼承來的 -->
     <div id="header" v-on:click="alert">
-        Author Name is {{ author }}.
+        <!-- 下面這個 author 會噴 bug -->
+        Author Name is {{ author }}. 
     </div>
 
     <script>
