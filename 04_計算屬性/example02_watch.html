@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <h3>聊天視窗</h3>
+        <ul>
+            <li v-for='msg in messages'> {{ msg }} </li>
+        </ul>
+
+        <!--  這個顯示正在輸入訊息的功能, 目前不支援中文 -->
+        <span v-if='isTyping'>正在輸入訊息...</span><br>
+
+        <input type="text" v-on:keypress='appendMsg'>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                typeCounter: 0,
+                messages : [
+                    'Hi 你好',
+                    '我是 AndrewChen',
+                    '這是個 Vue.js 的練習',
+                    '這個訊息視窗最多一次 5 行',
+                    '並且只支援英文和數字',
+                ],        
+            },
+            watch: {
+                messages : function() {
+                    if(this.messages.length > 5) {
+                        this.messages.shift();
+                    }
+                }
+            },
+            computed : {
+                isTyping: function() {
+                    return this.typeCounter > 0;
+                },
+            },
+            methods: {
+                appendMsg: function(e) {
+                    this.typeCounter = 3;
+                    // 按下 enter
+                    var code = e.keyCode || e.which;
+                    if(code == 13 && e.target.value != '') {
+                        this.messages.push(e.target.value);
+                        this.typeCounter = 0;
+                        e.target.value = '';
+                    }
+                }
+            },
+        })
+
+        setInterval(function(){
+            app.typeCounter--;
+        }, 1000);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click='toggleRegion'>切換台幣/美金價格</button><br><br>
+        實用小錢包價格：{{ regionMoneyUnit }} {{ regionPrice }}
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                region : 'TW',
+                price: 105,
+            },
+            // 直切取用 computed 類似 oop 中的 getter 的概念
+            // 而這個運算機制跟 methods 的區別是, 他的值會暫存下來, 除非內部調用到的 this.xxx 的數值有改變
+            // computed 才會主動去運算並 rerender，否則無問 computed 被呼叫幾次，都會回答第一次運算的結果
+            computed: {
+                // 依照地區取得對應的價格, 這邊算法很粗糙
+                regionPrice: function() {
+                    if(this.region == 'TW') {
+                        return this.price;
+                    }
+                    else if(this.region == 'NA') {
+                        return this.price / 30;
+                    }
+                },
+                // 取得幣值的名稱
+                regionMoneyUnit: function() {
+                    var moneyUnitStr = {
+                        TW : '台幣',
+                        NA : '美金',
+                    };
+                    return moneyUnitStr[this.region];
+                }
+            },
+            methods: {
+                // 切換地區 TW 或 NA
+                toggleRegion: function() {
+                    this.region = this.region == 'TW' ? 'NA' : 'TW';
+                },
+            },
+        })
+
+    </script>
+</body>
+
+</html>

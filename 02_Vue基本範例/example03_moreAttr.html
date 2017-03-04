@@ -35,6 +35,9 @@
         app.$el
 
         // 針對某一個資料綁定 function
+        // 請注意這個功能的使用, 如果頻繁地使用雙向綁定，會造成資料流的混亂
+        // 盡可能地讓 watch 不會再去影響其他資料或是進行運算
+        // 如果有其他會影響運算的功能, 應該在其他地放透握 computed 調用 this.title 才對
         app.$watch('title', function(value) {
             console.log('title change, new title is：', value);
         })
