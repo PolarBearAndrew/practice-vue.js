@@ -69,7 +69,10 @@
                 appendMsg: function(e) {
                     this.isTyping = true;
                     // 按下 enter
-                    if(e.keyCode == 13) {
+                    if(
+                        e.keyCode == 13 &&
+                        e.target.value != ''
+                    ) {
                         this.messages.push(e.target.value);
                         this.isTyping = false;
                         e.target.value = '';
