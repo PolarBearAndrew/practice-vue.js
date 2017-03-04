@@ -37,11 +37,11 @@
             data: {
                 typeCounter: 0,
                 messages : [
-                    'Hi 你好',
-                    '我是 AndrewChen',
+                    'Hi, 我是 AndrewChen',
                     '這是個 Vue.js 的練習',
                     '這個訊息視窗最多一次 5 行',
                     '並且只支援英文和數字',
+                    '呵呵'
                 ],        
             },
             watch: {
@@ -52,18 +52,26 @@
                 }
             },
             computed : {
-                isTyping: function() {
-                    return this.typeCounter > 0;
+                // 完整 getter setter 寫法
+                isTyping: {
+                    get : function() {
+                        return this.typeCounter > 0;
+                    },
+                    set : function(keepTyping) {
+                        if(keepTyping)
+                            this.typeCounter = 3;
+                        else 
+                            this.typeCounter = 0;
+                    },
                 },
             },
             methods: {
                 appendMsg: function(e) {
-                    this.typeCounter = 3;
+                    this.isTyping = true;
                     // 按下 enter
-                    var code = e.keyCode || e.which;
-                    if(code == 13 && e.target.value != '') {
+                    if(e.keyCode == 13) {
                         this.messages.push(e.target.value);
-                        this.typeCounter = 0;
+                        this.isTyping = false;
                         e.target.value = '';
                     }
                 }
@@ -71,7 +79,8 @@
         })
 
         setInterval(function(){
-            app.typeCounter--;
+            if(app.typeCounter > 0) 
+                app.typeCounter = app.typeCounter - 1;
         }, 1000);
 
     </script>
