@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+        .notGoodMsg {
+            opacity: 0.8;
+            color: palevioletred;
+        }
+        .unReadMsg {
+            font-weight: bolder;
+            color: darkblue;
+        }
+        .basicStyle {
+            margin-top: 12px;
+            font-size: medium;
+        }
+        .component {
+            width: 250px;
+            height: 30px;
+            background-color: cornflowerblue;
+            color: white;
+            padding: 4px;
+            border-radius: 3px 3px 3px 3px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <h3>聊天視窗</h3>
+        <ul>
+            <!-- 在這邊動態運算 className 要取用哪些, 我比較喜歡下面那種寫法  -->
+            <li v-for='msg in messages' 
+                v-bind:class='[{unReadMsg:msg.unRead, notGoodMsg:msg.text.indexOf("fuck") != -1}, defaultStyle]'> 
+                {{ msg.text }}
+            </li>
+        </ul>
+
+        <hr>
+
+        <h3>聊天視窗</h3>
+        <ul>
+            <li v-for='msg in messagesFromComputed' 
+                v-bind:class='[msg.class, defaultStyle]'> 
+                {{ msg.text }}
+            </li>
+        </ul>
+
+        <hr>
+
+        <h3>聊天視窗(使用元件)</h3>
+        <ul>
+            <msg-item v-for='msg in messagesFromComputed' 
+                v-bind:class='[msg.class, defaultStyle]'
+                v-bind:msg='msg'> 
+            </msg-item>
+        </ul>
+
+        <h3>聊天視窗(inline-css的寫法)</h3>
+        <!-- 同樣可以塞陣列進來  v-bind:style='[style1, style2]' -->
+        <ul>
+            <msg-item v-for='msg in messagesFromComputed' 
+                v-bind:style='msg.style'
+                v-bind:msg='msg'> 
+            </msg-item>
+        </ul>
+
+    </div>
+
+    <script>
+
+        // 元間內部的 class comonent 並不會被蓋掉
+        Vue.component('msg-item', {
+            props: ['msg'],
+            template: `<div class='component'>{{msg.text}}</div>`,
+        })
+
+        // class 的塞法就是以一個 [] 在裡面塞入下面三種：
+        // 1. { className: true/false } 運算式對應的 true/false 決定是否顯示
+        // 2. variableName 變數名稱會從 app.data 直接取出那個變數裡儲存的 className
+        // 3. [object] 將所有 { className: true/false, cssAttr: value } 事先運算好成一個 object，一次塞進來
+        var app = new Vue({
+            el: '#app',
+            data: {
+                defaultStyle: 'basicStyle',
+                messages : [
+                    {
+                        text: 'Hi, 我是 AndrewChen',
+                        unRead: false,
+                    },
+                    {
+                        text: '這是個 Vue.js 的練習',
+                        unRead: false,
+                    },
+                    {
+                        text: '這個訊息視窗最多一次 5 行',
+                        unRead: false,
+                    },
+                    {
+                        text: 'fuck you ..!!',
+                        unRead: false,
+                    },
+                    {
+                        text: '這行是未讀訊息',
+                        unRead: true,
+                    },
+                ],
+            },
+            computed: {
+                messagesFromComputed : function() {
+                    return this.messages.map(function(msg) {
+                        return {
+                            text: msg.text,
+                            // 將 class 的資料包成 json 以後一次塞進去
+                            class: {
+                                // 下面這兩個是 true/false 會影響是否套用該 className
+                                unReadMsg: msg.unRead,
+                                notGoodMsg: msg.text.indexOf('fuck') != -1,
+                            },
+                            style: {
+                                // inline-css的寫法
+                                'margin-top': '12px',                            }
+                        };
+                    });
+                }
+            },
+        })
+
+    </script>
+</body>
+
+</html>

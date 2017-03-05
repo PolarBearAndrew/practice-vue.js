@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 04</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            margin-left: 100px;
+            margin-top: 100px;
+            width: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        透過v-if選擇
+        <!-- 差異在於這邊只會 render 實際需要 render 的-->
+        <div v-if="type === 'A'"> A </div>
+        <div v-else-if="type === 'B'"> B </div>
+        <div v-else-if="type === 'C'"> C </div>
+        <div v-else> Not A/B/C </div>
+        <hr>
+        透過v-show選擇
+        <!-- 而這個 div 無論如何都會 render, 只是 display:none -->
+        <div v-show="type === 'A'"> A </div>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                type: 'B'
+            }
+        })
+
+    </script>
+</body>
+
+</html>
