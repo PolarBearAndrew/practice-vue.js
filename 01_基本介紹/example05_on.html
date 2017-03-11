@@ -23,6 +23,31 @@
         <button v-on:click="clickBtn">按我將數字加一</button>
         <br>
         {{ count }}
+    
+        <hr>
+
+        <!-- 修飾子 -->
+        <!-- 阻止泡沫事件 -->
+        <a v-on:click.stop="doThis"></a>
+        <!-- 提交事件不再重新載入頁面 -->
+        <form v-on:submit.prevent="onSubmit"></form>
+        <!-- 可串聯  -->
+        <a v-on:click.stop.prevent="doThat"></a>
+        <!-- 只有修饰符 -->
+        <form v-on:submit.prevent></form>
+        <!-- 添加事件監聽器时使用事件捕貨模式 -->
+        <div v-on:click.capture="doThis">...</div>
+        <!-- 只當事件在该元素本身（而不是子元素）觸發 -->
+        <div v-on:click.self="doThat">...</div>
+
+        <!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+        <input v-on:keyup.13="submit">  
+        <input v-on:keyup.enter="submit">  
+        <!--.enter .tab .delete (捕获 “删除” 和 “退格” 键) .esc .space .up .down .left .right-->
+
+        <!-- Alt + C -->
+        <input @keyup.alt.67="clear">
+
     </div>
 
     <script>

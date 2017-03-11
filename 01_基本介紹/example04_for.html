@@ -22,10 +22,27 @@
     <div id="app">
         <ol>
             <!-- v-if 必須跟 v-for 同層, 否則會產生 v-for 一個空的東西出來的問題 -->
-            <li v-for="user in users" v-if=user.visable>
+            <!-- 建議針對每個元素綁定 key 的動作 -->
+            <li v-for="user in users" v-if=user.visable v-bind:key="user.id">
                 {{ user.name }}
             </li>
         </ol>
+        <hr>
+        <ul>
+            <!-- 寫 in 或是 of 都可以-->
+            <li v-for="(user, index) of users" v-if=user.visable>
+                {{ index }} - {{ user.name }}
+            </li>
+        </ul>
+        <hr>
+        <!-- 針對物件迭代, 注意一下 val 跟 key 是相反的 -->
+        <div v-for="(val, key) in textData">
+            {{ key }} : {{ val }}
+        </div>
+        <hr>
+        <div>
+            <a v-for="n in 10" v-bind:href="n">{{ n }} </a>
+        </div>
     </div>
 
     <script>
@@ -33,10 +50,14 @@
             el: '#app',
             data: {
                 users: [
-                    { name: "AndrewChen", visable: true },
-                    { name: "陳柏安", visable: true },
-                    { name: "冰箱熊", visable: false },
-                ]
+                    { id: "111", name: "AndrewChen", visable: true },
+                    { id: "222", name: "陳柏安", visable: true },
+                    { id: "333", name: "冰箱熊", visable: false },
+                ],
+                textData: {
+                    title: "這是標題",
+                    content: "這是內容"
+                }
             }
         })
         // 3s後發生

@@ -15,6 +15,13 @@
             margin-left: 100px;
             margin-top: 100px;
         }
+        hr {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        select {
+            width: 100px
+        }
     </style>
 
 </head>
@@ -24,13 +31,71 @@
         {{ message }} 
         <br>
         <input type="text" v-model=message>
+
+        <hr>
+
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+
+        <hr>
+
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label><br>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label><br>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label><br>
+        <br>
+        <span>選取名單: {{ checkedNames.join(",") }}</span>
+
+        <hr>
+
+        <input type="radio" id="boy" value="boy" v-model="picked">
+        <label for="boy">boy</label><br>
+        <input type="radio" id="girl" value="girl" v-model="picked">
+        <label for="girl">girl</label><br>
+        <span>Picked: {{ picked }}</span>
+
+        <hr>
+
+        <select v-model="selected">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            </select>
+        <span>Selected: {{ selected }}</span>
+
+        <hr>
+
+        <select v-model="selectedMulti" multiple>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>selectedMulti: {{ selectedMulti.join(",") }}</span>
+
+        <!-- 所有 input 方式的修飾符 -->
+        <!-- 在 "change" 而不是 "input" 事件中更新 -->
+        <input v-model.lazy="msg" >
+        <!-- 強制數值 -->
+        <input v-model.number="age" type="number">
+        <!-- trim text -->
+        <input v-model.trim="msg">
+
+
     </div>
 
     <script>
         var app = new Vue({
             el: '#app',
             data: {
-                message: 'Hello Vue.js!'
+                message: 'Hello Vue.js!',
+                checked: false,
+                checkedNames: [],
+                picked: "boy",
+                selected: "B",
+                selectedMulti: [],
             }
         })
     </script>
