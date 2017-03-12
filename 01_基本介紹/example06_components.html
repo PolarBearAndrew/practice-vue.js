@@ -34,12 +34,21 @@
     <script>
         // 必須先 init component 才能進 new Vue 的動作, 不然會找不到這個元件
         Vue.component('msg-item', {
+            // 透過 props 才能把資料由父元素往下倒
             props: ['user'],
             template: `
-                <div class='user-message'>
+                <div class='user-message' v-show="visable">
                     <span class='name'>{{ user.name }}</span>
                     ：{{ user.message}}
                 </div>`,
+            computed: {
+                visable: function() {
+                    if(this.user.name == "不顯示")
+                        return false;
+                    else
+                        return true; 
+                },
+            },
         })
         var app = new Vue({
             el: '#app',
@@ -49,6 +58,7 @@
                     { name: '陳柏安', message: '您好我是陳柏安', },
                     { name: '冰箱熊', message: '吼~~~`', },
                     { name: '柴柴', message: '汪汪' },
+                    { name: '不顯示', message: '汪汪' },
                 ]
             },
         })

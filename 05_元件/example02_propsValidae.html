@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app, #app2 {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    
+
+    <script>
+        Vue.component('example', {
+            props: {
+                // 檢查是否為數值
+                // String, Number, Boolean, Function, Object, Array
+                propA: Number,
+                // 復合刑事
+                propB: [String, Number],
+                // 必要的
+                propC: {
+                    type: String,
+                    required: true
+                },
+                // 数字，有默认值
+                propD: {
+                    type: Number,
+                    default: 100
+                },
+                // 預設值, 預設值可為值或是 func
+                propE: {
+                    type: Object,
+                    default: function () {
+                        return { message: 'hello' };
+                    }
+                },
+                // 自訂 validator
+                propF: {
+                    validator: function (value) {
+                        return value > 10
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

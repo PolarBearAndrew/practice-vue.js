@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app, #app2 {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+        total : {{ total }}
+        <br>
+        <!-- 監聽 increment 事件,當他觸發時連動  incrementTotal -->
+        <btn-counter v-on:increment="incrementTotal">ADD:</btn-counter>
+        <btn-counter v-on:increment="incrementTotal"></btn-counter>
+
+        <!-- 增加監聽 click 的事件, 這是 native 的, 因此是無法確認兩個事件的順序 -->
+        <btn-counter v-on:click.native="incrementTotal"></btn-counter>
+    </div>
+
+    <script>
+        Vue.component('btn-counter', {
+            template: '<button v-on:click="increment"><slot></slot>{{ counter }}</button>',
+            data : function() {
+                return {
+                    counter : 0,
+                };
+            },
+            methods: {
+                increment: function() {
+                    this.counter += 1;
+                    this.$emit('increment'); //觸發復原宿的 v-on:increment
+                },
+            },
+        });  
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0,
+            },
+            methods: {
+                incrementTotal: function() {
+                    this.total += 1;
+                },
+            },
+        })  
+    </script>
+</body>
+
+</html>

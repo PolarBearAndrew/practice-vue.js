@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app, #app2 {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <h3>三個計數器共用一個資料</h3>
+        <sync-counter></sync-counter>
+        <sync-counter></sync-counter>
+        <sync-counter></sync-counter>
+    </div>
+
+    <div id="app2">
+        <h3>三個計數器獨立使用資料</h3>
+        <async-counter></async-counter>
+        <async-counter></async-counter>
+        <async-counter></async-counter>
+    </div>
+
+    <script>
+        var data = { counter : 0 }
+        Vue.component( 'sync-counter' , {
+            template : '<button v-on:click="counter += 1">{{ counter }}</button>' ,
+            // component 的 data 請使用 func 回傳
+            data: function () {
+                return data
+            },
+        });
+        var app = new Vue({
+            el : '#app'
+        });
+
+        Vue.component( 'async-counter' , {
+            template : '<button v-on:click="counter += 1">{{ counter }}</button>' ,
+            // component 的 data 請使用 func 回傳
+            data: function () {
+                return {
+                    counter: 0,
+                };
+            },
+        });
+        var app2 = new Vue({
+            el : '#app2'
+        });
+
+    </script>
+</body>
+
+</html>
