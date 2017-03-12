@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice Vue.js Example 01</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <style>
+        #app {
+            width: 800px;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-model="query" v-on:keyup.enter="search">
+        <br>
+        <container 
+            v-bind:query="query"
+            v-bind:total="total"
+            v-bind:repos="repos">
+        </container>
+    </div>
+
+    <script>
+        Vue.component('repo', {
+            template: '<li><a v-bind:href="url">{{ name }}</a> - {{ desc }}</li>',
+            props: ['name', 'url', 'desc'],
+        });
+        Vue.component('container', {
+            template: `
+            <div>
+                <hr>
+                Total Repo of {{ query }} : {{ total }}
+                <ul>
+                    <repo v-for="repo of repos" v-bind="repo" key="repo.id"></repo>
+                </ul>
+            </div>`,
+            props: {
+                query: {
+                    type: String,
+                    default: '',
+                },
+                total: {
+                    type: Number,
+                    default: 0,
+                },
+                repos: {
+                    type: Array,
+                    default: function() {
+                        return [];
+                    },
+                },
+            },
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                query: '',
+                total : 0,
+                repos: [],
+            },
+            watch: {
+                query: function() {
+                    this.search();
+                },
+            },
+            methods: {
+                search: function() {
+                    var query = this.query;
+                    searchAPI(query, function(err, result) {
+                        if(err) throw err;
+                        if(!result) return;
+                        if(query != this.query) return;
+                        this.total = result.total_count;
+                        this.repos = result.items.map(function(repo) {
+                            return {
+                                id: repo.id,
+                                name: repo.full_name,
+                                url: repo.url,
+                                desc: repo.description,
+                            };
+                        })
+                    }.bind(this));
+                },
+            }
+        });
+
+        function searchAPI(query, callback){
+            fetch('https://api.github.com/search/repositories?q=' + query)
+            .then(function(response) {
+                return response.text();
+            }).then(function(result) {
+                result = JSON.parse(result);
+                callback(null, result);
+            });
+        }
+    </script>
+</body>
+
+</html>

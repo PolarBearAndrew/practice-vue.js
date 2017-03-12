@@ -34,6 +34,7 @@
             template: '<div>{{ id }} - {{ name }}</div>',
             props: ['id', 'name'],
         });
+        //  這整個東西本身不該這樣寫
         Vue.component('container', function(resolve, reject){
             fetch('https://api.github.com/search/repositories?q=node.js')
             .then(function(response) {
